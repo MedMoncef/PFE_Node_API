@@ -1,12 +1,14 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+
 const { Schema } = mongoose;
 
-const ContactsSchema = new Schema({
-    name: String,
-    email: String,
-    number: Number,
-    message: String
-})
+const contactSchema = new Schema({
+  ID_Contact: String,
+  Nom: String,
+  Email: String,
+  Sujet: String,
+  Message: String
+});
 
-const Contact = mongoose.model("Contacts", ContactsSchema);
+const Contact = mongoose.model('Contact', contactSchema);
 export default Contact;

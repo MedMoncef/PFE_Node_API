@@ -13,6 +13,9 @@ import Message from './routes/message'
 import Menu from './routes/menu'
 import Contact from './routes/contact'
 import Blog from './routes/blog'
+import Reservation from './routes/reservation'
+import Event from './routes/event'
+import Post from './routes/post'
 
 import bodyParser from 'body-parser'
 const app = express()
@@ -45,6 +48,9 @@ app.use('/',Message)
 app.use('/',Menu)
 app.use('/',Contact)
 app.use('/',Blog)
+app.use('/',Reservation)
+app.use('/',Event)
+app.use('/',Post)
 
 //enable routes
 app.listen(port, () => {

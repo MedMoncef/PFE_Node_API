@@ -35,46 +35,94 @@ const getUserById = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  console.log(req.body);
-  const personInfo = req.body;
+  try {
+    const { nom, prenom, dateN, email, password, confirmPassword, id_post } = req.body;
 
-  if (
-    !personInfo.email ||
-    !personInfo.password ||
-    !personInfo.confirmPassword ||
-    personInfo.password !== personInfo.confirmPassword
-  ) {
-    res.status(400).json({ message: 'Invalid request data.' });
-  } else {
-    try {
-      const existingUser = await User.findOne({ email: personInfo.email });
-
-      if (existingUser) {
-        return res.status(409).json({ message: 'Email is already used.' });
-      }
-
-      const hashedPassword = await bcrypt.hash(personInfo.password, 10);
-
-      const newPerson = new User({
-        nom: personInfo.nom,
-        prenom: personInfo.prenom,
-        dateN: personInfo.dateN,
-        email: personInfo.email,
-        password: hashedPassword,
-        id_post: personInfo.id_post
-      });
-
-      const savedPerson = await newPerson.save();
-
-      const token = jwt.sign({ id: savedPerson._id, email: savedPerson.email }, 'your_secret_key');
-
-      res.status(201).json({ id: savedPerson._id, authToken: token });
-    } catch (error) {
-      console.error('Error creating user:', error);
-      res.sendStatus(500);
+    // Check if the user already exists
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).send({ error: 'User already exists' });
     }
+
+    // Check if the password and confirm password match
+    if (password !== confirmPassword) {
+      return res.status(400).send({ error: 'Password and confirm password do not match' });
+    }
+
+    // Encrypt password
+    const salt = await bcrypt.genSalt(10);
+    const encryptedPassword = await bcrypt.hash(password, salt);
+
+    const user = await User.create({
+      nom,
+      prenom,
+      dateN,
+      email,
+      password: encryptedPassword,
+      id_post
+    });
+
+    // Create JWT token
+    const token = jwt.sign(
+      { user_id: user._id, email },
+      process.env.TOKEN_KEY,
+      {
+        expiresIn: "24h",
+      }
+    );
+
+    // Send response
+    res.send({
+      email: user.email,
+      name: user.name,
+      token
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: 'Internal Server Error' });
   }
 };
+
+const loginUser = async (req, res) => {
+  try {
+      const {email, password} = req.body;
+
+      //check if the user already exists
+      const userExists = await User.findOne({email});
+      if(!userExists) {
+          return res.status(400).send({error: 'the User does not exists'});
+      }
+
+      if(!await bcrypt.compare(password, userExists.password)) {
+          return res.status(400).send({error: 'Invalid password'});
+      }
+
+      //create jwt token
+      const token = jwt.sign(
+          { user_id: userExists._id, email },
+          process.env.TOKEN_KEY,
+          {
+            expiresIn: "24h",
+          }
+      );
+
+      res.cookie("token", token, {
+          httpOnly: true
+      });
+
+      //send response
+      res.send({
+          email: userExists.email,
+          name: userExists.name,
+          token
+      });
+
+      
+  } catch (error) {
+      console.log(error);
+  }
+}
+
 
 /* const getAllUser = async (req, res) => {
   const users = await User.find();
@@ -123,4 +171,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { createUser, getAllUser, getUserById, updateUser, deleteUser };
+export { createUser, getAllUser, getUserById, updateUser, deleteUser, loginUser };

@@ -2,14 +2,18 @@ import Room from '../model/Room';
 import express from 'express';
 
 const createRoom = async (req, res) => {
-  const { Room_Number, Floor_Number, View, Type } = req.body;
+  const { Room_Number, Floor_Number, Name, Image, Description, View, Type, Price } = req.body;
 
   try {
     const newRoom = new Room({
       Room_Number,
       Floor_Number,
+      Name,
+      Image,
+      Description,
       View,
       Type,
+      Price,
     });
 
     const savedRoom = await newRoom.save();

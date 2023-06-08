@@ -7,6 +7,7 @@ const menuSchema = new Schema({
   Image: String,
   Nom: String,
   Description: String,
+  Prix: Number,
   Type: {
     type: String,
     enum: ['Breakfast', 'Appetizers and Starters', 'Main Courses', 'Desserts', 'Beverages']

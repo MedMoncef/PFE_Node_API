@@ -2,17 +2,17 @@ import Reservation from '../model/Reservation';
 import express from 'express';
 
 const createReservation = async (req, res) => {
-  const { ID_Reservation, ID_Rooms, People, Date_Debut, Date_Fin } = req.body;
+  const { firstName, lastName, Email, CIN, ID_Rooms, Date_Debut, Date_Fin } = req.body;
 
   try {
-    const duration = Date_Fin - Date_Debut;
     const newReservation = new Reservation({
-      ID_Reservation,
+      firstName,
+      lastName,
+      Email,
+      CIN,    
       ID_Rooms,
-      People,
       Date_Debut,
       Date_Fin,
-      Duree: duration
     });
 
     const savedReservation = await newReservation.save();

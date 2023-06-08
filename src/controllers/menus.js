@@ -2,13 +2,14 @@ import Menu from '../model/Menu';
 import express from 'express';
 
 const createMenu = async (req, res) => {
-  const { Image, Nom, Description, Type } = req.body;
+  const { Image, Nom, Description, Prix, Type } = req.body;
 
   try {
     const newMenu = new Menu({
       Image,
       Nom,
       Description,
+      Prix,
       Type
     });
 

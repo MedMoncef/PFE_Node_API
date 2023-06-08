@@ -17,6 +17,7 @@ import Reservation from './routes/reservation'
 import Event from './routes/event'
 import Post from './routes/post'
 import testimony from './routes/testimony'
+import roomType from './routes/roomtype'
 
 import bodyParser from 'body-parser'
 const app = express()
@@ -53,6 +54,7 @@ app.use('/',Reservation)
 app.use('/',Event)
 app.use('/',Post)
 app.use('/',testimony)
+app.use('/',roomType)
 
 //enable routes
 app.listen(port, () => {

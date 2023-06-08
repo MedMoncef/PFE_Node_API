@@ -70,4 +70,21 @@ const deleteRoom = async (req, res) => {
   }
 };
 
-export { createRoom, getAllRooms, updateRoom, deleteRoom };
+const getRoomById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const room = await Room.findById(id);
+
+    if (!room) {
+      return res.status(404).json({ message: 'Room not found' });
+    }
+
+    res.json(room);
+  } catch (error) {
+    console.error('Error getting room:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+export { createRoom, getAllRooms, updateRoom, deleteRoom, getRoomById };

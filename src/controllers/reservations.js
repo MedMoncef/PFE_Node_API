@@ -5,11 +5,17 @@ const createReservation = async (req, res) => {
   const { firstName, lastName, Email, CIN, ID_Rooms, Date_Debut, Date_Fin } = req.body;
 
   try {
+    const existingReservation = await Reservation.findOne({ $or: [{ Email }, { CIN }] });
+
+    if (existingReservation) {
+      return res.status(400).json({ message: 'Reservation already exists' });
+    }
+
     const newReservation = new Reservation({
       firstName,
       lastName,
       Email,
-      CIN,    
+      CIN,
       ID_Rooms,
       Date_Debut,
       Date_Fin,
@@ -23,6 +29,7 @@ const createReservation = async (req, res) => {
     res.sendStatus(500);
   }
 };
+
 
 const getAllReservations = async (req, res) => {
   try {

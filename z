@@ -1,0 +1,103 @@
+          <Grid item xs={12} md={6} style={{margin: '5%'}}>
+              <h2>Payment</h2>
+              <form onSubmit={handlePayment}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      label="Card Number"
+                      variant="outlined"
+                      fullWidth
+                      value={cardNumber}
+                      onChange={(event) => setCardNumber(event.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      label="Expiry Date"
+                      variant="outlined"
+                      fullWidth
+                      value={expiryDate}
+                      onChange={(event) => setExpiryDate(event.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      label="CVV"
+                      variant="outlined"
+                      fullWidth
+                      value={cvv}
+                      onChange={(event) => setCvv(event.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      label="Name on Card"
+                      variant="outlined"
+                      fullWidth
+                      value={name}
+                      onChange={(event) => setName(event.target.value)}
+                    />
+                  </Grid>
+                </Grid>
+                
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  sx={{
+                    width: '100%',
+                    flex: '1 0 auto',
+                    fontSize: '16px',
+                    fontFamily: 'Nunito Sans, Arial, sans-serif',
+                    position: 'relative',
+                    letterSpacing: '4px',
+                    color: '#f5e4c3',
+                    textTransform: 'uppercase',
+                    mt: 2
+                  }}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? <CircularProgress size={24}/> : "Payez Maintenant"}
+                </Button>
+
+                <Button
+                  onClick={resetForm}
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    width: '100%',
+                    flex: '1 0 auto',
+                    fontSize: '16px',
+                    fontFamily: 'Nunito Sans, Arial, sans-serif',
+                    position: 'relative',
+                    letterSpacing: '4px',
+                    color: '#f5e4c3',
+                    textTransform: 'uppercase',
+                    mt: 2
+                  }}
+                  disabled={isSubmitting}
+                >
+                  Reset
+                </Button>
+
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  sx={{
+                    width: '100%',
+                    flex: '1 0 auto',
+                    fontSize: '16px',
+                    fontFamily: 'Nunito Sans, Arial, sans-serif',
+                    position: 'relative',
+                    letterSpacing: '4px',
+                    color: '#f5e4c3',
+                    textTransform: 'uppercase',
+                    mt: 2
+                  }}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? <CircularProgress size={24}/> : "Payer Plus Tard"}
+                </Button>
+              </form>
+        </Grid>

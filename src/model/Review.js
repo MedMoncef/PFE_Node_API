@@ -4,11 +4,11 @@ const { Schema } = mongoose;
 
 const reviewSchema = new Schema({
   ID_Review: String,
-  OneStar: Number,
-  TwoStars: Number,
-  ThreeStars: Number,
-  FourStars: Number,
-  FiveStars: Number,
+  oneStar: Number,
+  twoStars: Number,
+  threeStars: Number,
+  fourStars: Number,
+  fiveStars: Number,
 });
 
 const Review = mongoose.model('Review', reviewSchema);

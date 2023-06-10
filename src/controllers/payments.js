@@ -1,7 +1,7 @@
 import Payment from '../model/Payment';
 
 const createPayment = async (req, res) => {
-  const { cardNumber, expiryDate, cvv, nameOnCard, amount } = req.body;
+  const { idReservation, cardNumber, expiryDate, cvv, nameOnCard, amount } = req.body;
 
   try {
     const existingPayment = await Payment.findOne({ cardNumber });
@@ -11,6 +11,7 @@ const createPayment = async (req, res) => {
     }
 
     const newPayment = new Payment({
+      idReservation,
       cardNumber,
       expiryDate,
       cvv,

@@ -2,8 +2,9 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const paymentSchema = new Schema({
-  cardNumber: String,
-  expiryDate: String,
+  idReservation: String,
+  cardNumber: Number,
+  expiryDate: Date,
   cvv: String,
   nameOnCard: String,
   amount: Number

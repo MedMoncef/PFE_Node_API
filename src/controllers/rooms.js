@@ -40,7 +40,7 @@ const updateRoom = async (req, res) => {
   const updatedRoom = req.body;
 
   try {
-    const result = await Room.updateOne({ _id: id }, updatedRoom);
+    const result = await Room.updateOne({ _id: id }.populate('Type'), updatedRoom);
 
     if (result.n === 0) {
       return res.status(404).json({ message: 'Room not found' });
@@ -74,7 +74,7 @@ const getRoomById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const room = await Room.findById(id);
+    const room = await Room.findById(id).populate('Type');
 
     if (!room) {
       return res.status(404).json({ message: 'Room not found' });

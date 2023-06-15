@@ -18,10 +18,10 @@ const registerSchema = z.object({
 // ...
 
 const getUserById = async (req, res) => {
-  const { _id } = req.params;
+  const { id } = req.params;
 
   try {
-    const user = await User.findById(_id);
+    const user = await User.findById(id);
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -142,7 +142,7 @@ const loginUser = async (req, res) => {
 }; */
 
 const getAllUser = async (req, res) => {
-  const users = await User.find();
+  const users = await User.find().populate('post');
   return res.send(users);
 };
 

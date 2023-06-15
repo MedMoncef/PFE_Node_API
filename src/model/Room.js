@@ -13,10 +13,7 @@ const roomSchema = new Schema({
   View: String,
   Size: String,
   Bed_Number: String,
-  Type: {
-    type: String,
-    enum: ['Standard Room', 'Deluxe Room', 'Suite', 'Executive Room', 'Family Room', 'Specialty Rooms']
-  },
+  Type: { type: Schema.Types.ObjectId, ref: 'RoomType', required: false },
   Rating: Number,
   Price: Number,
 });

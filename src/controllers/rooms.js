@@ -27,7 +27,7 @@ const createRoom = async (req, res) => {
 
 const getAllRooms = async (req, res) => {
   try {
-    const rooms = await Room.find();
+    const rooms = await Room.find().populate('Type');
     res.send(rooms);
   } catch (error) {
     console.error('Error getting rooms:', error);

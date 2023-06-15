@@ -18,10 +18,10 @@ const registerSchema = z.object({
 // ...
 
 const getUserById = async (req, res) => {
-  const { id } = req.params;
+  const { _id } = req.params;
 
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(_id);
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -36,8 +36,11 @@ const getUserById = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const { nom, prenom, dateN, email, password, confirmPassword, id_post } = req.body;
-
+    const { nom, prenom, dateN, email, password, confirmPassword, image, id_post } = req.body;
+    
+    if (!password) {
+      return res.status(400).send({ error: 'Password is required' });
+    }  
     // Check if the user already exists
     const userExists = await User.findOne({ email });
     if (userExists) {
@@ -51,7 +54,7 @@ const createUser = async (req, res) => {
 
     // Encrypt password
     const salt = await bcrypt.genSalt(10);
-    const encryptedPassword = await bcrypt.hash(password, salt);
+    const encryptedPassword = await bcrypt.hash(password, salt);    
 
     const user = await User.create({
       nom,
@@ -59,12 +62,13 @@ const createUser = async (req, res) => {
       dateN,
       email,
       password: encryptedPassword,
+      image,
       id_post
     });
 
     // Create JWT token
     const token = jwt.sign(
-      { user_id: user._id, email },
+      { user_id: user._id, nom, prenom, dateN, email, image, id_post },
       process.env.TOKEN_KEY,
       {
         expiresIn: "24h",
@@ -74,7 +78,7 @@ const createUser = async (req, res) => {
     // Send response
     res.send({
       email: user.email,
-      name: user.name,
+      nom: user.nom,
       token
     });
   } catch (error) {
@@ -85,43 +89,51 @@ const createUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-      const {email, password} = req.body;
+    const { email, password } = req.body;
 
-      //check if the user already exists
-      const userExists = await User.findOne({email});
-      if(!userExists) {
-          return res.status(400).send({error: 'the User does not exists'});
-      }
+    // Check if the user already exists
+    const userExists = await User.findOne({ email });
+    if (!userExists) {
+      return res.status(400).send({ error: 'The user does not exist' });
+    }
 
-      if(!await bcrypt.compare(password, userExists.password)) {
-          return res.status(400).send({error: 'Invalid password'});
-      }
+    // Compare passwords
+    const isPasswordValid = await bcrypt.compare(password, userExists.password);
+    if (!isPasswordValid) {
+      return res.status(400).send({ error: 'Invalid password' });
+    }
 
-      //create jwt token
-      const token = jwt.sign(
-          { user_id: userExists._id, email },
-          process.env.TOKEN_KEY,
-          {
-            expiresIn: "24h",
-          }
-      );
+    // Create JWT token payload
+    const tokenPayload = {
+      user_id: userExists._id,
+      nom: userExists.nom,
+      prenom: userExists.prenom,
+      dateN: userExists.dateN,
+      email: userExists.email,
+      image: userExists.image,
+      id_post: userExists.id_post
+    };
 
-      res.cookie("token", token, {
-          httpOnly: true
-      });
+    // Create JWT token
+    const token = jwt.sign(tokenPayload, process.env.TOKEN_KEY, {
+      expiresIn: '24h'
+    });
 
-      //send response
-      res.send({
-          email: userExists.email,
-          name: userExists.name,
-          token
-      });
+    res.cookie('token', token, {
+      httpOnly: true
+    });
 
-      
+    // Send response
+    res.send({
+      email: userExists.email,
+      nom: userExists.nom,
+      token
+    });
   } catch (error) {
-      console.log(error);
+    console.log(error);
+    res.status(500).send({ error: 'Internal server error' });
   }
-}
+};
 
 
 /* const getAllUser = async (req, res) => {

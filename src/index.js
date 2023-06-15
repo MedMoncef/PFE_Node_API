@@ -18,6 +18,7 @@ import Post from './routes/post'
 import testimony from './routes/testimony'
 import roomType from './routes/roomtype'
 import payment from './routes/payment'
+import menutype from './routes/menutype'
 
 import bodyParser from 'body-parser'
 const app = express()
@@ -55,6 +56,7 @@ app.use('/',Post)
 app.use('/',testimony)
 app.use('/',roomType)
 app.use('/',payment)
+app.use('/',menutype)
 
 //enable routes
 app.listen(port, () => {

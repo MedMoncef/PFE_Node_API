@@ -24,7 +24,7 @@ const createMenu = async (req, res) => {
 
 const getAllMenus = async (req, res) => {
   try {
-    const menus = await Menu.find();
+    const menus = await Menu.find().populate('Type');
     res.send(menus);
   } catch (error) {
     console.error('Error getting menus:', error);

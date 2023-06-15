@@ -8,10 +8,7 @@ const menuSchema = new Schema({
   Nom: String,
   Description: String,
   Prix: Number,
-  Type: {
-    type: String,
-    enum: ['Breakfast', 'Appetizers and Starters', 'Main Courses', 'Desserts', 'Beverages']
-  }
+  Type: { type: Schema.Types.ObjectId, ref: 'MenuType', required: false },
 });
 
 const Menu = mongoose.model('Menu', menuSchema);

@@ -21,7 +21,7 @@ const getUserById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(id).populate('id_post');
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -142,7 +142,7 @@ const loginUser = async (req, res) => {
 }; */
 
 const getAllUser = async (req, res) => {
-  const users = await User.find().populate('post');
+  const users = await User.find().populate('id_post');
   return res.send(users);
 };
 

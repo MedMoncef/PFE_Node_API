@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const testimonySchema = new Schema({
-  IdTestimony: String,
   comment: String,
   name: String,
   image: String,

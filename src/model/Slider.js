@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const sliderSchema = new Schema({
-  ID_Slider: String,
   Image: String,
   Titre: String,
   Text: String,

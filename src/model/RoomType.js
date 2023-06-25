@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const roomTypeSchema = new Schema({
-  ID_RoomType: String,
   Name: String,
 });
 

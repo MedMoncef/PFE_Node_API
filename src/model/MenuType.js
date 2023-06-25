@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const menuTypeSchema = new Schema({
-  ID_MenuType: String,
   Name: String,
 });
 

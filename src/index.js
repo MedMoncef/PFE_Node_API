@@ -1,8 +1,6 @@
 import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
-import mongoose from 'mongoose'
-import expressLayouts from 'express-ejs-layouts'
 import 'dotenv/config'
 import databaseConnexion from './tools/databaseConnexion'
 import User from './routes/user'
@@ -19,6 +17,7 @@ import testimony from './routes/testimony'
 import roomType from './routes/roomtype'
 import payment from './routes/payment'
 import menutype from './routes/menutype'
+import timetable from './routes/timetable'
 
 import bodyParser from 'body-parser'
 const app = express()
@@ -57,6 +56,7 @@ app.use('/',testimony)
 app.use('/',roomType)
 app.use('/',payment)
 app.use('/',menutype)
+app.use('/',timetable)
 
 //enable routes
 app.listen(port, () => {

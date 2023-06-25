@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const roomSchema = new Schema({
-  ID_Rooms: String,
   Room_Number: String,
   Floor_Number: String,
   Name: String,

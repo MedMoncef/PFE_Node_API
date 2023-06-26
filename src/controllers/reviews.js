@@ -3,7 +3,7 @@ import express from 'express';
 import nodemailer from 'nodemailer';
 
 const createReview = async (req, res) => {
-  const { Nom, Message, Image } = req.body;
+  const { Nom, Message, Image, starRating } = req.body;
 
   try {
     const newReview = new Review({
@@ -11,6 +11,20 @@ const createReview = async (req, res) => {
       Message,
       Image
     });
+
+    if (starRating < 1 || starRating > 5) {
+      return res.status(400).json({ message: 'Invalid star rating' });
+    }
+
+    // Add a count to the appropriate star rating
+    if (starRating === 1) newReview.oneStar += 1;
+    else if (starRating === 2) newReview.twoStars += 1;
+    else if (starRating === 3) newReview.threeStars += 1;
+    else if (starRating === 4) newReview.fourStars += 1;
+    else if (starRating === 5) newReview.fiveStars += 1;
+
+    // Now calculate the score
+    newReview.calculateScore();
 
     const savedReview = await newReview.save();
 

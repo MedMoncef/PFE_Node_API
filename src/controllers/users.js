@@ -68,7 +68,7 @@ const createUser = async (req, res) => {
 
     // Create JWT token
     const token = jwt.sign(
-      { user_id: user._id, nom, prenom, dateN, email, image, id_post },
+      { user_id: user._id, id_post },
       process.env.TOKEN_KEY,
       {
         expiresIn: "24h",
@@ -106,11 +106,6 @@ const loginUser = async (req, res) => {
     // Create JWT token payload
     const tokenPayload = {
       user_id: userExists._id,
-      nom: userExists.nom,
-      prenom: userExists.prenom,
-      dateN: userExists.dateN,
-      email: userExists.email,
-      image: userExists.image,
       id_post: userExists.id_post
     };
 

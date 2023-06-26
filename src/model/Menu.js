@@ -7,7 +7,7 @@ const menuSchema = new Schema({
   Nom: String,
   Description: String,
   Prix: Number,
-  Type: String,
+  Type: { type: Schema.Types.ObjectId, ref: 'MenuType', required: false },
 });
 
 const Menu = mongoose.model('Menu', menuSchema);

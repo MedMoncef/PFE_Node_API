@@ -8,7 +8,7 @@ const userSchema = new Schema({
   email: String,
   password: String,
   image: String,
-  id_post: { type: Schema.Types.ObjectId, ref: 'Post', required: false },
+  id_post: { type: mongoose.Schema.Types.ObjectId, ref: 'Post', required: false },
 });
 
 // Pre-hook to capitalize the first letter of nom and prenom

@@ -2,7 +2,7 @@ import Reservation from '../model/Reservation';
 import express from 'express';
 
 const createReservation = async (req, res) => {
-  const { firstName, lastName, Email, CIN, ID_Rooms, Date_Debut, Date_Fin, Duree } = req.body;
+  const { firstName, lastName, Email, CIN, ID_Rooms, Date_Debut, Date_Fin, Duree, Prix, Paid } = req.body;
 
   try {
 
@@ -15,6 +15,8 @@ const createReservation = async (req, res) => {
       Date_Debut,
       Date_Fin,
       Duree,
+      Prix,
+      Paid,
     });
 
     const savedReservation = await newReservation.save();
@@ -39,9 +41,10 @@ const getAllReservations = async (req, res) => {
 
 const getReservationById = async (req, res) => {
   const { id } = req.params;
+  const updateData = req.body;
 
   try {
-    const reservation = await Reservation.findById(id);
+    const reservation = await Reservation.findByIdAndUpdate(id, updateData, { new: true });
 
     if (!reservation) {
       return res.status(404).json({ message: 'Reservation not found' });
@@ -49,10 +52,11 @@ const getReservationById = async (req, res) => {
 
     res.send(reservation);
   } catch (error) {
-    console.error('Error getting reservation by ID:', error);
+    console.error('Error updating reservation by ID:', error);
     res.sendStatus(500);
   }
 };
+
 
 const updateReservation = async (req, res) => {
   const { id } = req.params;

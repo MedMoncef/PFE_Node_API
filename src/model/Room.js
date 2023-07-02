@@ -13,7 +13,6 @@ const roomSchema = new Schema({
   Size: String,
   Bed_Number: String,
   Type: { type: Schema.Types.ObjectId, ref: 'RoomType', required: false },
-  Rating: Number,
   Price: Number,
 });
 

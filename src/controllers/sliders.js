@@ -69,4 +69,21 @@ const deleteSlider = async (req, res) => {
   }
 };
 
-export { createSlider, getAllSliders, updateSlider, deleteSlider };
+const getSliderById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const slider = await Slider.findById(id);
+
+    if (!slider) {
+      return res.status(404).json({ message: 'Slider not found' });
+    }
+
+    res.json(slider);
+  } catch (error) {
+    console.error('Error getting slider:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+export { createSlider, getAllSliders, getSliderById, updateSlider, deleteSlider };

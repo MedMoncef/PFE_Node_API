@@ -71,4 +71,21 @@ const deleteRoomType = async (req, res) => {
   }
 };
 
-export { createRoomType, getAllRoomTypes, updateRoomType, deleteRoomType };
+const getRoomTypeById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const roomType = await RoomType.findById(id);
+
+    if (!roomType) {
+      return res.status(404).json({ message: 'Room type not found' });
+    }
+
+    res.json(roomType);
+  } catch (error) {
+    console.error('Error getting room type:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+export { createRoomType, getAllRoomTypes, getRoomTypeById, updateRoomType, deleteRoomType };

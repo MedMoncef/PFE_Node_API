@@ -5,7 +5,7 @@ import { createBlog, getAllBlogs, getBlogById, updateBlog, deleteBlog } from '..
 router.post('/blogs', createBlog);
 router.get('/blogs', getAllBlogs);
 router.get('/blogs/:id', getBlogById);
-router.put('/blogs/:id', updateBlog);
+router.patch('/blogs/:id', updateBlog);
 router.delete('/blogs/:id', deleteBlog);
 
 export default router;

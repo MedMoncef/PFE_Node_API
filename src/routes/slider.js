@@ -5,7 +5,7 @@ import { createSlider, getAllSliders, getSliderById, updateSlider, deleteSlider 
 router.post('/sliders', createSlider);
 router.get('/sliders', getAllSliders);
 router.get('/sliders/:id', getSliderById);
-router.put('/sliders/:id', updateSlider);
+router.patch('/sliders/:id', updateSlider);
 router.delete('/sliders/:id', deleteSlider);
 
 export default router;

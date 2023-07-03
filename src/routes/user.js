@@ -4,7 +4,7 @@ import { createUser, getAllUser, getUserById, updateUser, deleteUser, loginUser 
 
 router.post("/create_user", createUser);
 router.get("/users", getAllUser);
-router.put("/update_user/:id", updateUser);
+router.patch("/users/:id", updateUser);
 router.get('/users/:id', getUserById);
 router.delete("/delete_user/:id", deleteUser);
 router.post("/loginUser", loginUser);

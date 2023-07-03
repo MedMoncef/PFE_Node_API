@@ -147,7 +147,24 @@ const updateUser = async (req, res) => {
   const updatedUser = req.body;
 
   try {
-    const result = await User.updateOne({ _id: id }, updatedUser);
+    // Check if the updatedUser object contains a password field
+    if (updatedUser.password) {
+      // Encrypt the password
+      const salt = await bcrypt.genSalt(10);
+      const encryptedPassword = await bcrypt.hash(updatedUser.password, salt);
+  
+      updatedUser.password = encryptedPassword;
+    }
+
+    const result = await User.updateOne({ _id: id }, {
+      nom: updatedUser.nom,
+      prenom: updatedUser.prenom,
+      dateN: updatedUser.dateN,
+      email: updatedUser.email,
+      password: updatedUser.password,
+      image: updatedUser.image,
+      id_post: updatedUser.id_post
+    });
 
     if (result.n === 0) {
       return res.status(404).json({ message: 'User not found' });
@@ -159,7 +176,6 @@ const updateUser = async (req, res) => {
     return res.status(500).json({ message: 'Internal Server Error' });
   }
 };
-
 
 const deleteUser = async (req, res) => {
   const { id } = req.params;

@@ -3,11 +3,11 @@ import express from 'express';
 import nodemailer from 'nodemailer';
 
 const createBlog = async (req, res) => {
-  const { Image, Titre, Content } = req.body;
+  const { Image_B, Titre, Content } = req.body;
 
   try {
     const newBlog = new Blog({
-      Image,
+      Image_B,
       Titre,
       Content
     });
@@ -36,7 +36,7 @@ const getAllBlogs = async (req, res) => {
 
 const getBlogById = async (req, res) => {
   const { id } = req.params;
-
+  console.log(req.params);
   try {
     const blog = await Blog.findById(id);
 
@@ -54,6 +54,7 @@ const getBlogById = async (req, res) => {
 const updateBlog = async (req, res) => {
   const { id } = req.params;
   const updatedBlog = req.body;
+  console.log(updatedBlog);
 
   try {
     const result = await Blog.updateOne({ _id: id }, updatedBlog);

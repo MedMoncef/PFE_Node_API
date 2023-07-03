@@ -32,6 +32,23 @@ const getAllMenus = async (req, res) => {
   }
 };
 
+const getMenuById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const menu = await Menu.findById(id).populate('Type');
+
+    if (!menu) {
+      return res.status(404).json({ message: 'Menu not found' });
+    }
+
+    res.send(menu);
+  } catch (error) {
+    console.error('Error getting menu by ID:', error);
+    res.sendStatus(500);
+  }
+};
+
 const updateMenu = async (req, res) => {
   const { id } = req.params;
   const updatedMenu = req.body;
@@ -67,4 +84,4 @@ const deleteMenu = async (req, res) => {
   }
 };
 
-export { createMenu, getAllMenus, updateMenu, deleteMenu };
+export { createMenu, getAllMenus, getMenuById, updateMenu, deleteMenu };

@@ -2,10 +2,10 @@ import express from "express";
 const router = express.Router();
 import { createTestimony, getAllTestimonies, updateTestimony, deleteTestimony, getTestimonyById } from '../controllers/testimonies';
 
-router.post("/create_testimony", createTestimony);
+router.post("/testimonies", createTestimony);
 router.get("/testimonies", getAllTestimonies);
-router.put("/update_testimony/:id", updateTestimony);
+router.patch("/testimonies/:id", updateTestimony);
 router.get('/testimonies/:id', getTestimonyById);
-router.delete("/delete_testimony/:id", deleteTestimony);
+router.delete("/testimonies/:id", deleteTestimony);
 
 export default router;

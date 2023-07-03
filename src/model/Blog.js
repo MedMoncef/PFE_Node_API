@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const blogSchema = new Schema({
-  Image: String,
+  Image_B: String,
   Titre: String,
   Content: String,
   DateU: {

@@ -36,6 +36,23 @@ const getAllMenuTypes = async (req, res) => {
   }
 };
 
+const getMenuTypeById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const menuType = await MenuType.findById(id);
+    
+    if (!menuType) {
+      return res.status(404).json({ message: 'Menu type not found' });
+    }
+
+    res.json(menuType);
+  } catch (error) {
+    console.error('Error getting menu type by ID:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
 const updateMenuType = async (req, res) => {
   const { id } = req.params;
   const updatedMenuType = req.body;
@@ -71,4 +88,4 @@ const deleteMenuType = async (req, res) => {
   }
 };
 
-export { createMenuType, getAllMenuTypes, updateMenuType, deleteMenuType };
+export { createMenuType, getAllMenuTypes, getMenuTypeById, updateMenuType, deleteMenuType };

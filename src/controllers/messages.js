@@ -2,13 +2,13 @@ import Message from '../model/Message';
 import express from 'express';
 
 const createMessage = async (req, res) => {
-  const { Sujet, Message, ID_Sent } = req.body;
+  const { messageContent, ID_Sent, ID_SentTo } = req.body;
 
   try {
     const newMessage = new Message({
-      Sujet,
-      Message,
+      Message: messageContent,  // Renamed Message to messageContent
       ID_Sent,
+      ID_SentTo,
     });
 
     const savedMessage = await newMessage.save();
@@ -19,6 +19,7 @@ const createMessage = async (req, res) => {
     res.sendStatus(500);
   }
 };
+
 
 const getAllMessages = async (req, res) => {
   try {
@@ -65,4 +66,23 @@ const deleteMessage = async (req, res) => {
   }
 };
 
-export { createMessage, getAllMessages, updateMessage, deleteMessage };
+const getMessagesBetweenUsers = async (req, res) => {
+  const { userID, otherUserID } = req.params;
+
+  try {
+    const messages = await Message.find({
+      $or: [
+        { ID_Sent: userID, ID_SentTo: otherUserID },
+        { ID_Sent: otherUserID, ID_SentTo: userID },
+      ],
+    });
+
+    res.send(messages);
+  } catch (error) {
+    console.error('Error getting messages:', error);
+    res.sendStatus(500);
+  }
+};
+
+
+export { createMessage, getAllMessages, updateMessage, deleteMessage, getMessagesBetweenUsers };

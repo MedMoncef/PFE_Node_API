@@ -40,7 +40,7 @@ const createContact = async (req, res) => {
         <p>Thank you for your contact message. We have received your message and will get back to you soon.</p>
       `,
       attachments: [{
-        filename: 'favicon.jpg',
+        filename: 'favicon_uqaujb.jpg',
         path: 'https://res.cloudinary.com/dv5o7w2aw/image/upload/v1688666841/Insta/favicon_uqaujb.jpg',
         cid: 'unique@nodemailer.com'
       }]

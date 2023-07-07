@@ -177,6 +177,20 @@ const updateUser = async (req, res) => {
   }
 };
 
+const getUsersByPostId = async (req, res) => {
+  const { post_id } = req.params;
+
+  try {
+    const users = await User.find({ id_post: post_id });
+
+    return res.json(users);
+  } catch (error) {
+    console.error('Error getting users:', error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+
 const deleteUser = async (req, res) => {
   const { id } = req.params;
 
@@ -194,4 +208,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { createUser, getAllUser, getUserById, updateUser, deleteUser, loginUser };
+export { createUser, getAllUser, getUserById, updateUser, deleteUser, loginUser, getUsersByPostId };

@@ -63,7 +63,10 @@ const updateReservation = async (req, res) => {
   const updatedReservation = req.body;
 
   try {
+    console.log(updatedReservation); // Should show the data received
     const result = await Reservation.updateOne({ _id: id }, updatedReservation);
+    console.log(result); // Should show the result of the update operation
+
 
     if (result.n === 0) {
       return res.status(404).json({ message: 'Reservation not found' });

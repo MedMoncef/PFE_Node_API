@@ -2,7 +2,7 @@ import Room from '../model/Room';
 import express from 'express';
 
 const createRoom = async (req, res) => {
-  const { Room_Number, Floor_Number, Name, Image, Description, View, Type, Price } = req.body;
+  const { Room_Number, Floor_Number, Name, Image, Description, Max, View, Size, Bed_Number, Type, Price } = req.body;
 
   try {
     const newRoom = new Room({
@@ -11,7 +11,10 @@ const createRoom = async (req, res) => {
       Name,
       Image,
       Description,
+      Max,
       View,
+      Size,
+      Bed_Number,
       Type,
       Price,
     });

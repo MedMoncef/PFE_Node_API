@@ -6,7 +6,7 @@ const reservationSchema = new Schema({
   lastName: String,
   Email: String,
   CIN: String,
-  ID_Rooms: String,
+  ID_Rooms: { type: Schema.Types.ObjectId, ref: 'Room', required: false },
   Date_Debut: Date,
   Date_Fin: Date,
   Duree: Number,

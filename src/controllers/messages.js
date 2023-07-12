@@ -136,6 +136,19 @@ const getGroupMessagesByPost = async (req, res) => {
   }
 };
 
+const getMessagesRelatedToUser = async (req, res) => {
+  const { userID, ID_PostSent } = req.params;
+
+  try {
+    const messages = await Message.find({ ID_SentTo: userID, ID_PostSent });
+    res.json(messages);
+  } catch (error) {
+    console.error('Error fetching messages:', error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+};
+
+
 export {
   createMessage,
   getMessageById_Post,  // Added getMessageById_Post
@@ -144,5 +157,6 @@ export {
   deleteMessage,
   getMessagesBetweenUsers,
   deleteMessagesBetweenUsers,
-  getGroupMessagesByPost
+  getGroupMessagesByPost,
+  getMessagesRelatedToUser
 };

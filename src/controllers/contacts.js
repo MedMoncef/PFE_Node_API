@@ -41,7 +41,7 @@ const createContact = async (req, res) => {
       `,
       attachments: [{
         filename: 'favicon_uqaujb.jpg',
-        path: 'https://res.cloudinary.com/dv5o7w2aw/image/upload/v1688666841/Insta/favicon_uqaujb.jpg',
+        path: 'https://res.cloudinary.com/dv5o7w2aw/image/upload/v1689081635/Insta/360_F_317545278_9npY5ZatinXjQq6aMVhHO9KuUUMJdkNd_yjiewt.jpg',
         cid: 'unique@nodemailer.com'
       }]
     };

@@ -57,9 +57,9 @@ Please note that check-in time is at ${Date_Debut}, and check-out time is at ${D
 
 We offer Spa and massage services for your convenience. Our hotel is also conveniently located near Harbor Beach and Harbor Museum.
 
-Your reservation is guaranteed until ${Date_Debut}. If you need to modify or cancel your reservation, kindly inform us at least 2 days prior to your scheduled arrival by calling us at +1 123 456 7890 or contacting us through (http://localhost:3000/Client/contact) with this serial number (${savedReservation._id}).
+Your reservation is guaranteed until ${Date_Debut}. If you need to modify or cancel your reservation, kindly inform us at least a day prior to your scheduled arrival by calling us at +1 123 456 7890 or contacting us through (http://localhost:3000/Client/contact) with this serial number (${savedReservation._id}).
 
-Thank you for choosing Harbor. We are excited to provide you with a memorable experience. Please don't hesitate to contact us if you need any further assistance.
+Thank you for choosing Harbor Hotel. We are excited to provide you with a memorable experience. Please don't hesitate to contact us if you need any further assistance.
 
 Warm regards,
 

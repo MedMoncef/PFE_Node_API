@@ -7,7 +7,7 @@ const userSchema = new Schema({
   dateN: String,
   email: String,
   password: String,
-  image: String,
+  image: { type: String, default: null, required: false },
   id_post: { type: mongoose.Schema.Types.ObjectId, ref: 'Post', required: false },
 });
 

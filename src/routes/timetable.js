@@ -1,8 +1,11 @@
 import express from "express";
 const router = express.Router();
-import { loginCheck } from '../controllers/timeTables';
+import { getAllTimeTable, deleteTimeTable, getTimeTableById, updateTimeTable } from '../controllers/timeTables';
 
-// Route to handle user login
-router.post('/loginCheck', loginCheck);
+
+router.get('/timetables/get/:_id', getTimeTableById);
+router.put('/timetables/:id', updateTimeTable);
+router.get('/timetables', getAllTimeTable);
+router.delete('/timetables/delete/:id', deleteTimeTable);
 
 export default router;

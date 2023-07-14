@@ -1,10 +1,8 @@
 import User from '../model/User';
-import express from "express";
-import nodemailer from "nodemailer";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import z from 'zod';
-
+import TimeTable from '../model/TimeTable';
 
 const registerSchema = z.object({
   nom: z.string().nonempty('Nom is required'),
@@ -102,6 +100,25 @@ const loginUser = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(400).send({ error: 'Invalid password' });
     }
+
+        // Determine if the user is late
+        const loginTime = new Date();
+        const loginDate = new Date(loginTime.getFullYear(), loginTime.getMonth(), loginTime.getDate());
+        const isLate = loginTime.getHours() > 9; // This assumes that a user is late if they log in after 9:00.
+    
+        // Create a new TimeTable document
+        await TimeTable.create({
+          user: userExists._id,
+          loginTime,
+          loginDate,
+          isLate
+        });
+    
+        // If the user is late, increment their late count
+        if (isLate) {
+          userExists.late += 1;
+          await userExists.save();
+        }
 
     // Create JWT token payload
     const tokenPayload = {

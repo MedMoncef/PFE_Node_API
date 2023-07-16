@@ -18,6 +18,7 @@ import roomType from './routes/roomtype'
 import payment from './routes/payment'
 import menutype from './routes/menutype'
 import timetable from './routes/timetable'
+import announcement from './routes/announcement'
 
 
 import bodyParser from 'body-parser'
@@ -45,6 +46,7 @@ app.use(express.json())
 //Bdd
 app.use('/',User)
 app.use('/',Slider)
+app.use('/',announcement)
 app.use('/',Room)
 app.use('/',Review)
 app.use('/',Message)

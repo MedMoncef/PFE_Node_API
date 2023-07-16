@@ -15,11 +15,6 @@ const createContact = async (req, res) => {
   const { Nom, Email, Sujet, Message } = req.body;
 
   try {
-    const existingContact = await Contact.findOne({ Email });
-    if (existingContact) {
-      return res.status(400).json({ message: 'Contact message already made.' });
-    }
-
     const newContact = new Contact({
       Nom,
       Email,

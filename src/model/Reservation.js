@@ -11,7 +11,7 @@ const reservationSchema = new Schema({
   Date_Fin: Date,
   Duree: Number,
   Prix: Number,
-  Paid:{ type: String, required: false, default: 'Invalid' },
+  Paid: { type: String, required: false, default: 'Invalid' },
 });
 
 const Reservation = mongoose.model('Reservation', reservationSchema);
